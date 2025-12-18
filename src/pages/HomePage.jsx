@@ -57,28 +57,28 @@ const HomePage = () => {
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-              <Link to="/workers">
-                {/* ✅ Updated Left Button to match the Right Button style */}
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-orange-600"
-                >
-                  Browse Workers
-                </Button>
-              </Link>
-              
-              <Link to="/register">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-orange-600"
-                >
-                  Join as Worker
-                </Button>
-              </Link>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <Link to="/workers">
+              {/* ✅ Updated Left Button to match the Right Button style */}
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-orange-600"
+              >
+                Browse Workers
+              </Button>
+            </Link>
+            
+            <Link to="/register">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-orange-600"
+              >
+                Join as Worker
+              </Button>
+            </Link>
+          </div>
           </div>
         </div>
       </div>
