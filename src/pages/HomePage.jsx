@@ -59,10 +59,16 @@ const HomePage = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Link to="/workers">
-                <Button size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
+                {/* ✅ Updated Left Button to match the Right Button style */}
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-orange-600"
+                >
                   Browse Workers
                 </Button>
               </Link>
+              
               <Link to="/register">
                 <Button
                   size="lg"
