@@ -48,7 +48,9 @@ const CustomerRegistration = () => {
 
     try {
       setLoading(true);
-      await register(formData);
+      // Backend expects `fullName` (or firstName/lastName). Map `name` to `fullName`.
+      const payload = { ...formData, fullName: formData.name };
+      await register(payload);
       navigate('/dashboard');
     } catch (err) {
       setErrors({ submit: err.response?.data?.message || 'Registration failed' });

@@ -42,7 +42,7 @@ const Navbar = () => {
                 >
                   Dashboard
                 </Link>
-                <span className="text-gray-700">Welcome, {currentUser.name}</span>
+                <span className="text-gray-700">Welcome {currentUser.name}</span>
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
