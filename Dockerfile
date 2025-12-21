@@ -3,6 +3,10 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Accept build-arg to set API base URL at build time (default /api for production)
+ARG VITE_API_BASE_URL="/api"
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+
 # Install dependencies
 COPY package.json package-lock.json* ./
 RUN npm ci --silent
