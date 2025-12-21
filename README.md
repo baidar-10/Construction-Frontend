@@ -72,3 +72,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 ### `npm run dev' => for local compiling of the frontend
+
+
+
+### *wwzfzf5wbcvcKkcyxrf => Hosting Password through ssh ubuntu@85.202.192.68
