@@ -12,6 +12,8 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
+import EnhancedRegister from './pages/EnhancedRegister';
+import WelcomePage from './pages/WelcomePage';
 
 // Components
 import Navbar from './components/common/Navbar';
@@ -34,6 +36,8 @@ function App() {
                   <Route path="/dashboard" element={<DashboardPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="*" element={<NotFoundPage />} />
+                  <Route path="/register" element={<EnhancedRegister />} />
+                  <Route path="/welcome" element={<WelcomePage />} />
                 </Routes>
               </main>
               <Footer />

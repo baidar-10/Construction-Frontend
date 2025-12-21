@@ -3,14 +3,18 @@ import axios from './axios.config';
 export const workerService = {
   // Get all workers
   getAllWorkers: async (filters = {}) => {
-    const response = await axios.get('/workers', { params: filters });
-    return response.data;
+    // Remove empty or undefined filters so they don't produce query params like skill=
+    const params = Object.fromEntries(
+      Object.entries(filters || {}).filter(([, value]) => value !== undefined && value !== null && value !== "")
+    );
+    const response = await axios.get('/workers', { params });
+    return response.data.workers || [];
   },
 
   // Get worker by ID
   getWorkerById: async (workerId) => {
     const response = await axios.get(`/workers/${workerId}`);
-    return response.data;
+    return response.data.worker;
   },
 
   // Search workers
@@ -18,7 +22,7 @@ export const workerService = {
     const response = await axios.get('/workers/search', {
       params: { q: searchQuery },
     });
-    return response.data;
+    return response.data.workers || [];
   },
 
   // Filter workers by skill
@@ -26,7 +30,7 @@ export const workerService = {
     const response = await axios.get('/workers/filter', {
       params: { skill },
     });
-    return response.data;
+    return response.data.workers || [];
   },
 
   // Get worker reviews

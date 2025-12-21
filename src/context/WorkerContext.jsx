@@ -10,6 +10,13 @@ export const WorkerProvider = ({ children }) => {
   const [filters, setFilters] = useState({});
 
   const fetchWorkers = async (newFilters = {}) => {
+    // Avoid starting a fetch if one is already in progress
+    if (loading) return;
+
+    // If filters didn't change, skip
+    const filtersStr = JSON.stringify(newFilters || {});
+    if (JSON.stringify(filters) === filtersStr && workers.length > 0) return;
+
     setLoading(true);
     setError(null);
     try {

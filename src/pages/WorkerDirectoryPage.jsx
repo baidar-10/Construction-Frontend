@@ -9,7 +9,12 @@ const WorkerDirectoryPage = () => {
   const [selectedSkill, setSelectedSkill] = useState('');
 
   useEffect(() => {
-    fetchWorkers({ skill: selectedSkill });
+    // Only pass skill filter when selectedSkill is non-empty to avoid unnecessary empty query params
+    if (selectedSkill) {
+      fetchWorkers({ skill: selectedSkill });
+    } else {
+      fetchWorkers();
+    }
   }, [selectedSkill]);
 
   const handleSearch = (query) => {
