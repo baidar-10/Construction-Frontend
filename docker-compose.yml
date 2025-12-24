@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    container_name: construction_frontend
+    ports:
+      - "80:80"
+    restart: always
+    networks:
+      - frontend_network
+
+networks:
+  frontend_network:
+    driver: bridge
