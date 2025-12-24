@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
 import { useAuth } from '../hooks/useAuth';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,7 @@ const LoginPage = () => {
       await login(formData);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      setError(t('errors.loginFailed'));
     } finally {
       setLoading(false);
     }
@@ -36,11 +38,13 @@ const LoginPage = () => {
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Welcome Back</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+          {t('auth.welcomeBack')}
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
-            label="Email"
+            label={t('auth.email')}
             name="email"
             type="email"
             value={formData.email}
@@ -49,7 +53,7 @@ const LoginPage = () => {
           />
 
           <Input
-            label="Password"
+            label={t('auth.password')}
             name="password"
             type="password"
             value={formData.password}
@@ -60,14 +64,14 @@ const LoginPage = () => {
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <Button type="submit" loading={loading} className="w-full">
-            Login
+            {t('auth.login')}
           </Button>
         </form>
 
         <p className="mt-6 text-center text-gray-600">
-          Don't have an account?{' '}
+          {t('auth.dontHaveAccount')}{' '}
           <Link to="/register" className="text-orange-500 hover:text-orange-600 font-semibold">
-            Sign up
+            {t('auth.signupLink')}
           </Link>
         </p>
       </div>

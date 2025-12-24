@@ -1,65 +1,47 @@
-import React from 'react';
-import { Calendar, DollarSign, Star, Clock } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../hooks/useAuth';
+import { bookingService } from '../../api/bookingService';
+import Loader from '../common/Loader';
+import BookingCard from '../booking/BookingCard';
 
 const WorkerDashboard = () => {
+  const { t } = useTranslation();
+  const { currentUser } = useAuth();
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const data = await bookingService.getWorkerBookings(currentUser.id);
+        setBookings(data);
+      } catch (err) {
+        setError(err.response?.data?.message || t('errors.fetchFailed'));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (currentUser) {
+      fetchBookings();
+    }
+  }, [currentUser, t]);
+
+  if (loading) return <Loader fullScreen showText />;
+  if (error) return <div className="text-center py-16 text-red-600">{error}</div>;
+
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">Worker Dashboard</h2>
-      
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-blue-100 rounded-full">
-              <Calendar className="w-6 h-6 text-blue-600" />
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Active Jobs</p>
-              <p className="text-xl font-bold">3</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-green-100 rounded-full">
-              <DollarSign className="w-6 h-6 text-green-600" />
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Earnings (Month)</p>
-              <p className="text-xl font-bold">$1,250</p>
-            </div>
-          </div>
-        </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">{t('booking.myBookings')}</h1>
 
-        <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-yellow-100 rounded-full">
-              <Star className="w-6 h-6 text-yellow-600" />
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Rating</p>
-              <p className="text-xl font-bold">4.8</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-lg shadow border border-gray-100">
-          <div className="flex items-center space-x-3">
-            <div className="p-3 bg-purple-100 rounded-full">
-              <Clock className="w-6 h-6 text-purple-600" />
-            </div>
-            <div>
-              <p className="text-gray-500 text-sm">Hours Worked</p>
-              <p className="text-xl font-bold">124</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="font-semibold text-lg mb-4">Recent Bookings</h3>
-        <p className="text-gray-500">No new booking requests.</p>
+      <div className="space-y-4">
+        {bookings.length === 0 ? (
+          <p className="text-gray-600">{t('booking.noBookings')}</p>
+        ) : (
+          bookings.map((booking) => <BookingCard key={booking.id} booking={booking} />)
+        )}
       </div>
     </div>
   );

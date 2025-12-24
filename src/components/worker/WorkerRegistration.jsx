@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Input from '../common/Input';
+import PhoneInput from '../common/PhoneInput'; // Add this import
 import Button from '../common/Button';
 import { useAuth } from '../../hooks/useAuth';
-import { useWorkers } from '../../hooks/useWorkers';
 import { validateForm } from '../../utils/validation';
-import { USER_TYPES, WORKER_SPECIALTIES } from '../../utils/constants';
+import { USER_TYPES } from '../../utils/constants';
 
 const WorkerRegistration = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { register } = useAuth();
-  const { fetchWorkers } = useWorkers();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    phone: '',
-    specialty: '',
-    hourlyRate: '',
-    experienceYears: '',
-    bio: '',
+    phone: '+7', // Initialize with +7
     location: '',
+    role: '',
+    experience: '',
     skills: '',
+    hourlyRate: '',
+    bio: '',
     userType: USER_TYPES.WORKER,
   });
 
@@ -43,9 +44,10 @@ const WorkerRegistration = () => {
       email: { required: true, email: true },
       password: { required: true, password: true },
       phone: { required: true, phone: true },
-      specialty: { required: true },
-      hourlyRate: { required: true },
       location: { required: true },
+      role: { required: true },
+      experience: { required: true },
+      hourlyRate: { required: true },
     };
 
     const validationErrors = validateForm(formData, validationRules);
@@ -57,71 +59,136 @@ const WorkerRegistration = () => {
 
     try {
       setLoading(true);
-      // Map to API expected fields
-      const payload = {
-        fullName: formData.name,
-        email: formData.email,
-        password: formData.password,
-        phone: formData.phone,
-        userType: formData.userType,
-        specialty: formData.specialty,
-        hourlyRate: parseFloat(formData.hourlyRate) || 0,
-        experienceYears: parseInt(formData.experienceYears) || 0,
-        bio: formData.bio,
-        location: formData.location,
-        skills: formData.skills ? formData.skills.split(',').map(s => s.trim()).filter(Boolean) : [],
-      };
-
-      await register(payload);
-      // Refresh worker listing so the new worker appears on Find Workers
-      try {
-        await fetchWorkers();
-      } catch (e) {
-        // ignore fetch errors for now
-        console.error('Failed to refresh workers list:', e);
-      }
-      navigate('/workers');
+      const skillsArray = formData.skills.split(',').map((s) => s.trim());
+      await register({ ...formData, skills: skillsArray });
+      navigate('/dashboard');
     } catch (err) {
-      setErrors({ submit: err.response?.data?.message || 'Registration failed' });
+      setErrors({ submit: err.response?.data?.message || t('errors.registrationFailed') });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center">Join as a Professional</h2>
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        {t('auth.register')} {t('auth.imWorker').toLowerCase()}
+      </h2>
 
-      <Input label="Full Name" name="name" value={formData.name} onChange={handleChange} error={errors.name} required />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label={t('auth.fullName')}
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          error={errors.name}
+          required
+        />
 
-      <Input label="Email" name="email" type="email" value={formData.email} onChange={handleChange} error={errors.email} required />
+        <Input
+          label={t('auth.email')}
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          error={errors.email}
+          required
+        />
 
-      <Input label="Password" name="password" type="password" value={formData.password} onChange={handleChange} error={errors.password} required />
+        <Input
+          label={t('auth.password')}
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          error={errors.password}
+          required
+        />
 
-      <Input label="Phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} error={errors.phone} required />
+        <PhoneInput
+          label={t('auth.phone')}
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          placeholder={t('auth.phonePlaceholder')}
+          error={errors.phone}
+          required
+        />
 
-      <label className="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
-      <select name="specialty" value={formData.specialty} onChange={handleChange} className="w-full p-2 border border-gray-300 rounded">
-        <option value="">Select your trade...</option>
-        {WORKER_SPECIALTIES.map((s) => (
-          <option key={s} value={s}>{s}</option>
-        ))}
-      </select>
-      {errors.specialty && <p className="text-red-500 text-sm">{errors.specialty}</p>}
+        <Input
+          label={t('auth.location')}
+          name="location"
+          value={formData.location}
+          onChange={handleChange}
+          placeholder={t('auth.locationPlaceholder')}
+          error={errors.location}
+          required
+        />
 
-      <Input label="Hourly Rate ($)" name="hourlyRate" type="number" value={formData.hourlyRate} onChange={handleChange} error={errors.hourlyRate} required />
+        <Input
+          label={t('auth.professionalRole')}
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          placeholder={t('auth.rolePlaceholder')}
+          error={errors.role}
+          required
+        />
 
-      <Input label="Location" name="location" value={formData.location} onChange={handleChange} error={errors.location} required />
+        <Input
+          label={t('auth.yearsExperience')}
+          name="experience"
+          type="number"
+          value={formData.experience}
+          onChange={handleChange}
+          error={errors.experience}
+          required
+        />
 
-      <Input label="Experience Years" name="experienceYears" type="number" value={formData.experienceYears} onChange={handleChange} />
+        <Input
+          label={t('auth.hourlyRate')}
+          name="hourlyRate"
+          type="number"
+          value={formData.hourlyRate}
+          onChange={handleChange}
+          error={errors.hourlyRate}
+          required
+        />
+      </div>
 
-      <Input label="Bio" name="bio" value={formData.bio} onChange={handleChange} />
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          {t('auth.skillsLabel')} <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="skills"
+          value={formData.skills}
+          onChange={handleChange}
+          placeholder={t('auth.skillsPlaceholder')}
+          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          rows="3"
+        />
+      </div>
 
-      <Input label="Skills (comma separated)" name="skills" value={formData.skills} onChange={handleChange} />
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          {t('auth.bio')}
+        </label>
+        <textarea
+          name="bio"
+          value={formData.bio}
+          onChange={handleChange}
+          placeholder={t('auth.bioPlaceholder')}
+          className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          rows="4"
+        />
+      </div>
 
       {errors.submit && <p className="text-red-500 text-sm">{errors.submit}</p>}
 
-      <Button type="submit" loading={loading} className="w-full">Create Worker Account</Button>
+      <Button type="submit" loading={loading} className="w-full">
+        {t('auth.createWorkerAccount')}
+      </Button>
     </form>
   );
 };

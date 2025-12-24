@@ -1,7 +1,9 @@
 import React from 'react';
 import { Users } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className="bg-slate-800 text-white py-8 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,10 +15,10 @@ const Footer = () => {
             <span className="text-xl font-bold">BuildConnect</span>
           </div>
           <p className="text-slate-400">
-            Connecting customers with trusted construction professionals
+            {t('footer.tagline')}
           </p>
           <p className="text-slate-500 text-sm mt-4">
-            © {new Date().getFullYear()} BuildConnect. All rights reserved.
+            {t('footer.copyright', { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

@@ -1,54 +1,57 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const WelcomePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, userType } = location.state || {};
 
+  const { t } = useTranslation();
+
   const workerSteps = [
     {
       icon: "👤",
-      title: "Complete Your Profile",
-      description: "Add portfolio images, certifications, and availability schedule to stand out"
+      title: t('welcome.workerSteps.1.title'),
+      description: t('welcome.workerSteps.1.description')
     },
     {
       icon: "🔍",
-      title: "Get Discovered",
-      description: "Customers can find you through search and browse your profile"
+      title: t('welcome.workerSteps.2.title'),
+      description: t('welcome.workerSteps.2.description')
     },
     {
       icon: "📅",
-      title: "Receive Bookings",
-      description: "Accept job requests and manage your schedule easily"
+      title: t('welcome.workerSteps.3.title'),
+      description: t('welcome.workerSteps.3.description')
     },
     {
       icon: "⭐",
-      title: "Build Reputation",
-      description: "Earn reviews and ratings to attract more customers"
+      title: t('welcome.workerSteps.4.title'),
+      description: t('welcome.workerSteps.4.description')
     }
   ];
 
   const customerSteps = [
     {
       icon: "🔍",
-      title: "Browse Workers",
-      description: "Search and filter by specialty, location, and ratings"
+      title: t('welcome.customerSteps.1.title'),
+      description: t('welcome.customerSteps.1.description')
     },
     {
       icon: "👤",
-      title: "View Profiles",
-      description: "Check worker experience, skills, reviews, and portfolio"
+      title: t('welcome.customerSteps.2.title'),
+      description: t('welcome.customerSteps.2.description')
     },
     {
       icon: "📅",
-      title: "Book Services",
-      description: "Schedule jobs with your preferred workers instantly"
+      title: t('welcome.customerSteps.3.title'),
+      description: t('welcome.customerSteps.3.description')
     },
     {
       icon: "💬",
-      title: "Stay Connected",
-      description: "Message workers directly and track your bookings"
+      title: t('welcome.customerSteps.4.title'),
+      description: t('welcome.customerSteps.4.description')
     }
   ];
 
@@ -74,21 +77,18 @@ const WelcomePage = () => {
           </div>
           
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Welcome to BuildConnect{user && `, ${user.firstName}!`}
+            {t('welcome.title')}{user && `, ${user.firstName}!`}
           </h1>
           
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {userType === 'worker' 
-              ? "You're all set to start receiving job requests and building your reputation!"
-              : "You're ready to find and hire skilled construction workers for your projects!"
-            }
+            {userType === 'worker' ? t('welcome.hero.worker') : t('welcome.hero.customer')}
           </p>
         </div>
 
         {/* How It Works Section */}
         <div className="max-w-5xl mx-auto mb-12">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            How It Works
+            {t('welcome.howItWorks')}
           </h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -110,7 +110,7 @@ const WelcomePage = () => {
         {/* Features Section */}
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            What You Can Do Now
+            {t('welcome.whatYouCanDoNow')}
           </h2>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -123,8 +123,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Complete Your Profile</h3>
-                    <p className="text-sm text-gray-600">Add photos, update your bio, and showcase your work</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.completeProfile.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.completeProfile.description')}</p>
                   </div>
                 </div>
 
@@ -135,8 +135,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Set Availability</h3>
-                    <p className="text-sm text-gray-600">Let customers know when you're available for work</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.setAvailability.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.setAvailability.description')}</p>
                   </div>
                 </div>
 
@@ -147,8 +147,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Respond to Inquiries</h3>
-                    <p className="text-sm text-gray-600">Chat with potential customers about their projects</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.respondInquiries.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.respondInquiries.description')}</p>
                   </div>
                 </div>
 
@@ -159,8 +159,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Accept Bookings</h3>
-                    <p className="text-sm text-gray-600">Review and accept job requests that fit your schedule</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.acceptBookings.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.acceptBookings.description')}</p>
                   </div>
                 </div>
               </>
@@ -173,8 +173,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Search Workers</h3>
-                    <p className="text-sm text-gray-600">Find workers by specialty, location, and ratings</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.searchWorkers.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.searchWorkers.description')}</p>
                   </div>
                 </div>
 
@@ -185,8 +185,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Save Favorites</h3>
-                    <p className="text-sm text-gray-600">Bookmark workers you'd like to hire in the future</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.saveFavorites.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.saveFavorites.description')}</p>
                   </div>
                 </div>
 
@@ -197,8 +197,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Book Services</h3>
-                    <p className="text-sm text-gray-600">Schedule jobs with just a few clicks</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.bookServices.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.bookServices.description')}</p>
                   </div>
                 </div>
 
@@ -209,8 +209,8 @@ const WelcomePage = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Leave Reviews</h3>
-                    <p className="text-sm text-gray-600">Help others by sharing your experience</p>
+                    <h3 className="font-semibold text-gray-900 mb-1">{t('welcome.features.leaveReviews.title')}</h3>
+                    <p className="text-sm text-gray-600">{t('welcome.features.leaveReviews.description')}</p>
                   </div>
                 </div>
               </>
@@ -224,14 +224,14 @@ const WelcomePage = () => {
             onClick={handleGetStarted}
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-lg font-semibold rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
-            {userType === 'worker' ? 'View My Profile' : 'Browse Workers'}
+            {userType === 'worker' ? t('welcome.cta.viewProfile') : t('welcome.cta.browseWorkers')}
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </button>
           
           <p className="mt-4 text-sm text-gray-600">
-            You can always access your dashboard from the menu
+            {t('welcome.cta.dashboardNote')}
           </p>
         </div>
       </div>

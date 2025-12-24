@@ -3,8 +3,11 @@ import { Calendar, Clock, User } from 'lucide-react';
 import Button from '../common/Button';
 import { formatDate, formatTime } from '../../utils/helpers';
 import { BOOKING_STATUS } from '../../utils/constants';
+import { useTranslation } from 'react-i18next'; // 1. Import hook
 
 const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }) => {
+  const { t } = useTranslation(); // 2. Initialize t function
+
   const getStatusColor = (status) => {
     switch (status) {
       case BOOKING_STATUS.PENDING:
@@ -37,7 +40,8 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
           </div>
         </div>
         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(booking.status)}`}>
-          {booking.status}
+          {/* Use dynamic key for status: e.g., booking.status.pending */}
+          {t(`booking.status.${booking.status}`)}
         </span>
       </div>
 
@@ -53,7 +57,8 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
       </div>
 
       <div className="mb-4">
-        <p className="text-sm text-gray-600 font-medium mb-1">Description:</p>
+        {/* Translated Label */}
+        <p className="text-sm text-gray-600 font-medium mb-1">{t('booking.projectDescription')}:</p>
         <p className="text-gray-700">{booking.description}</p>
       </div>
 
@@ -62,7 +67,7 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
           {isWorker ? (
             <>
               <Button onClick={() => onAccept(booking.id)} className="flex-1" size="sm">
-                Accept
+                {t('booking.acceptBooking')}
               </Button>
               <Button
                 onClick={() => onReject(booking.id)}
@@ -70,7 +75,7 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
                 className="flex-1"
                 size="sm"
               >
-                Decline
+                {t('booking.declineBooking')}
               </Button>
             </>
           ) : (
@@ -80,7 +85,7 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
               className="w-full"
               size="sm"
             >
-              Cancel Booking
+              {t('booking.cancelBooking')}
             </Button>
           )}
         </div>

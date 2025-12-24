@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Input from '../common/Input';
+import PhoneInput from '../common/PhoneInput'; // Add this import
 import Button from '../common/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { validateForm } from '../../utils/validation';
 import { USER_TYPES } from '../../utils/constants';
 
 const CustomerRegistration = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { register } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -15,7 +18,7 @@ const CustomerRegistration = () => {
     name: '',
     email: '',
     password: '',
-    phone: '',
+    phone: '+7', // Initialize with +7
     location: '',
     userType: USER_TYPES.CUSTOMER,
   });
@@ -48,12 +51,10 @@ const CustomerRegistration = () => {
 
     try {
       setLoading(true);
-      // Backend expects `fullName` (or firstName/lastName). Map `name` to `fullName`.
-      const payload = { ...formData, fullName: formData.name };
-      await register(payload);
+      await register(formData);
       navigate('/dashboard');
     } catch (err) {
-      setErrors({ submit: err.response?.data?.message || 'Registration failed' });
+      setErrors({ submit: err.response?.data?.message || t('errors.registrationFailed') });
     } finally {
       setLoading(false);
     }
@@ -61,10 +62,12 @@ const CustomerRegistration = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Register as Customer</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        {t('auth.register')} {t('auth.imCustomer').toLowerCase()}
+      </h2>
 
       <Input
-        label="Full Name"
+        label={t('auth.fullName')}
         name="name"
         value={formData.name}
         onChange={handleChange}
@@ -73,7 +76,7 @@ const CustomerRegistration = () => {
       />
 
       <Input
-        label="Email"
+        label={t('auth.email')}
         name="email"
         type="email"
         value={formData.email}
@@ -83,7 +86,7 @@ const CustomerRegistration = () => {
       />
 
       <Input
-        label="Password"
+        label={t('auth.password')}
         name="password"
         type="password"
         value={formData.password}
@@ -92,22 +95,22 @@ const CustomerRegistration = () => {
         required
       />
 
-      <Input
-        label="Phone Number"
+      <PhoneInput
+        label={t('auth.phone')}
         name="phone"
-        type="tel"
         value={formData.phone}
         onChange={handleChange}
+        placeholder={t('auth.phonePlaceholder')}
         error={errors.phone}
         required
       />
 
       <Input
-        label="Location"
+        label={t('auth.location')}
         name="location"
         value={formData.location}
         onChange={handleChange}
-        placeholder="City, State"
+        placeholder={t('auth.locationPlaceholder')}
         error={errors.location}
         required
       />
@@ -115,7 +118,7 @@ const CustomerRegistration = () => {
       {errors.submit && <p className="text-red-500 text-sm">{errors.submit}</p>}
 
       <Button type="submit" loading={loading} className="w-full">
-        Create Customer Account
+        {t('auth.createCustomerAccount')}
       </Button>
     </form>
   );

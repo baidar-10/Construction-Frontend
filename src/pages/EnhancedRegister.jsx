@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { authService } from '../api/authService';
 import { WORKER_SPECIALTIES, SKILLS_LIST } from '../utils/constants';
 
 const EnhancedRegister = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [userType, setUserType] = useState('');
@@ -50,23 +52,23 @@ const EnhancedRegister = () => {
 
   const validateStep1 = () => {
     if (!formData.fullName.trim()) {
-      setError('Full name is required');
+      setError(t('errors.required', { field: t('auth.fullName') }));
       return false;
     }
     if (!formData.email.trim()) {
-      setError('Email is required');
+      setError(t('errors.required', { field: t('auth.email') }));
       return false;
     }
     if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters');
+      setError(t('errors.passwordTooShort'));
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('errors.passwordMismatch'));
       return false;
     }
     if (!formData.phone.trim()) {
-      setError('Phone number is required');
+      setError(t('errors.required', { field: t('auth.phone') }));
       return false;
     }
     return true;
@@ -74,11 +76,11 @@ const EnhancedRegister = () => {
 
   const validateStep2Worker = () => {
     if (!formData.specialty) {
-      setError('Please select a specialty');
+      setError(t('errors.required', { field: t('auth.professionalRole') }));
       return false;
     }
     if (!formData.location.trim()) {
-      setError('Location is required');
+      setError(t('errors.required', { field: t('auth.location') }));
       return false;
     }
     return true;
@@ -145,8 +147,8 @@ const EnhancedRegister = () => {
       <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-4">
         <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Welcome to BuildConnect</h1>
-            <p className="text-lg text-gray-600">Choose how you'd like to join our platform</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">{t('welcome.title')}</h1>
+            <p className="text-lg text-gray-600">{t('register.chooseJoin')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -161,20 +163,20 @@ const EnhancedRegister = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">I'm a Customer</h3>
-                <p className="text-gray-600 mb-4">Find and hire skilled construction workers for your projects</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('auth.imCustomer')}</h3>
+                <p className="text-gray-600 mb-4">{t('register.customer.description')}</p>
                 <ul className="text-left text-sm text-gray-600 space-y-2">
                   <li className="flex items-start">
                     <span className="text-orange-500 mr-2">✓</span>
-                    Browse worker profiles
+                    {t('register.customer.benefits.browseProfiles')}
                   </li>
                   <li className="flex items-start">
                     <span className="text-orange-500 mr-2">✓</span>
-                    Book services easily
+                    {t('register.customer.benefits.bookServices')}
                   </li>
                   <li className="flex items-start">
                     <span className="text-orange-500 mr-2">✓</span>
-                    Leave reviews and ratings
+                    {t('register.customer.benefits.leaveReviews')}
                   </li>
                 </ul>
               </div>
@@ -191,20 +193,20 @@ const EnhancedRegister = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">I'm a Worker</h3>
-                <p className="text-gray-600 mb-4">Showcase your skills and get hired for construction projects</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('auth.imWorker')}</h3>
+                <p className="text-gray-600 mb-4">{t('register.worker.description')}</p>
                 <ul className="text-left text-sm text-gray-600 space-y-2">
                   <li className="flex items-start">
                     <span className="text-orange-500 mr-2">✓</span>
-                    Create professional profile
+                    {t('register.worker.benefits.createProfile')}
                   </li>
                   <li className="flex items-start">
                     <span className="text-orange-500 mr-2">✓</span>
-                    Get job opportunities
+                    {t('register.worker.benefits.getJobs')}
                   </li>
                   <li className="flex items-start">
                     <span className="text-orange-500 mr-2">✓</span>
-                    Build your reputation
+                    {t('register.worker.benefits.buildReputation')}
                   </li>
                 </ul>
               </div>

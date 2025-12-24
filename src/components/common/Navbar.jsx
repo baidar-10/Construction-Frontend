@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Users, Menu, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,8 +34,10 @@ const Navbar = () => {
               to="/workers"
               className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              Find Workers
+              {t('nav.findWorkers')}
             </Link>
+
+            <LanguageSwitcher />
 
             {currentUser ? (
               <>
@@ -40,14 +45,16 @@ const Navbar = () => {
                   to="/dashboard"
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                 >
-                  Dashboard
+                  {t('nav.dashboard')}
                 </Link>
-                <span className="text-gray-700">Welcome {currentUser.name}</span>
+                <span className="text-gray-700">
+                  {t('nav.welcome', { name: currentUser.name })}
+                </span>
                 <button
                   onClick={handleLogout}
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                 >
-                  Logout
+                  {t('nav.logout')}
                 </button>
               </>
             ) : (
@@ -56,13 +63,13 @@ const Navbar = () => {
                   to="/login"
                   className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
                 >
-                  Login
+                  {t('nav.login')}
                 </Link>
                 <Link
                   to="/register"
                   className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors"
                 >
-                  Sign Up
+                  {t('nav.signup')}
                 </Link>
               </>
             )}
@@ -80,12 +87,16 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 space-y-2">
+            <div className="px-4 py-2">
+              <LanguageSwitcher />
+            </div>
+            
             <Link
               to="/workers"
               className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Find Workers
+              {t('nav.findWorkers')}
             </Link>
 
             {currentUser ? (
@@ -95,14 +106,16 @@ const Navbar = () => {
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Dashboard
+                  {t('nav.dashboard')}
                 </Link>
-                <div className="px-4 py-2 text-gray-700">Welcome, {currentUser.name}</div>
+                <div className="px-4 py-2 text-gray-700">
+                  {t('nav.welcome', { name: currentUser.name })}
+                </div>
                 <button
                   onClick={handleLogout}
                   className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
                 >
-                  Logout
+                  {t('nav.logout')}
                 </button>
               </>
             ) : (
@@ -112,14 +125,14 @@ const Navbar = () => {
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Login
+                  {t('nav.login')}
                 </Link>
                 <Link
                   to="/register"
                   className="block px-4 py-2 bg-orange-500 text-white rounded-lg"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Sign Up
+                  {t('nav.signup')}
                 </Link>
               </>
             )}

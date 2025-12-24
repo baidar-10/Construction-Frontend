@@ -1,0 +1,236 @@
+{
+  "nav": {
+    "home": "Home",
+    "findWorkers": "Find Workers",
+    "login": "Login",
+    "signup": "Sign Up",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "welcome": "Welcome, {{name}}"
+  },
+  "hero": {
+    "title": "Find Trusted Construction Professionals",
+    "subtitle": "Connect with experienced workers for all your home repair and construction needs",
+    "searchPlaceholder": "Search by name, role, or location...",
+    "browseWorkers": "Browse Workers",
+    "joinAsWorker": "Join as Worker"
+  },
+  "features": {
+    "title": "How It Works",
+    "findWorkers": {
+      "title": "Find Workers",
+      "description": "Search for qualified construction professionals by skills, location, and ratings"
+    },
+    "verifiedProfiles": {
+      "title": "Verified Profiles",
+      "description": "View detailed profiles with reviews, experience, and certifications"
+    },
+    "easyBooking": {
+      "title": "Easy Booking",
+      "description": "Schedule appointments directly through our platform"
+    },
+    "directCommunication": {
+      "title": "Direct Communication",
+      "description": "Message workers directly to discuss project details"
+    }
+  },
+  "cta": {
+    "title": "Ready to Get Started?",
+    "subtitle": "Join thousands of satisfied customers and skilled workers",
+    "signupCustomer": "Sign Up as Customer",
+    "registerWorker": "Register as Worker"
+  },
+  "worker": {
+    "professional": "Professional",
+    "available": "Available",
+    "busy": "Busy",
+    "unavailable": "Unavailable",
+    "years": "years",
+    "experience": "{{count}} years experience",
+    "reviews": "{{count}} reviews",
+    "rate": "Rate",
+    "perHour": "/hr",
+    "viewProfile": "View Profile",
+    "bookNow": "Book Now",
+    "sendMessage": "Send Message",
+    "skills": "Skills",
+    "about": "About",
+    "companies": "Affiliated Companies",
+    "professionalSkills": "Professional Skills",
+    "noReviews": "No reviews yet"
+  },
+  "search": {
+    "workersFound": "{{count}} workers found",
+    "noWorkersFound": "No workers found",
+    "allSkills": "All Skills",
+    "clearFilters": "Clear filters"
+  },
+  "booking": {
+    "title": "Book {{name}}",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time",
+    "chooseTime": "Choose a time",
+    "projectDescription": "Project Description",
+    "descriptionPlaceholder": "Describe the work you need done...",
+    "estimatedRate": "Estimated Rate:",
+    "finalCostNote": "Final cost will be discussed with the worker",
+    "sendRequest": "Send Booking Request",
+    "myBookings": "My Bookings",
+    "noBookings": "No bookings yet",
+    "cancelBooking": "Cancel Booking",
+    "acceptBooking": "Accept",
+    "declineBooking": "Decline",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Your Account",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "phone": "Phone Number",
+    "location": "Location",
+    "phonePlaceholder": "+7 (___) ___-__-__",
+    "locationPlaceholder": "City, State",
+    "professionalRole": "Professional Role",
+    "rolePlaceholder": "e.g., Electrician, Plumber",
+    "yearsExperience": "Years of Experience",
+    "skillsLabel": "Skills (comma-separated)",
+    "skillsPlaceholder": "e.g., Wiring, Installation, Repair",
+    "hourlyRate": "Hourly Rate ($)",
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us about your experience and specialties...",
+    "imCustomer": "As a Customer",
+    "imWorker": "As a Worker",
+    "createWorkerAccount": "Create Worker Account",
+    "createCustomerAccount": "Create Customer Account",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Login"
+  },
+  "roles": {
+    "worker": "Worker",
+    "customer": "Customer"
+  },
+  "register": {
+    "chooseJoin": "Choose how you'd like to join our platform",
+    "customer": {
+      "description": "Find and hire skilled construction workers for your projects",
+      "benefits": {
+        "browseProfiles": "Browse worker profiles",
+        "bookServices": "Book services easily",
+        "leaveReviews": "Leave reviews and ratings"
+      }
+    },
+    "worker": {
+      "description": "Showcase your skills and get hired for construction projects",
+      "benefits": {
+        "createProfile": "Create professional profile",
+        "getJobs": "Get job opportunities",
+        "buildReputation": "Build your reputation"
+      }
+    },
+    "stepCount": "Step {{step}} of {{total}}",
+    "changeAccountType": "Change account type",
+    "completeProfile": "Complete Your {{role}} Profile"
+  },
+  "errors": {
+    "loginFailed": "Login failed. Please check your credentials.",
+    "registrationFailed": "Registration failed",
+    "fetchFailed": "Failed to load data",
+    "bookingFailed": "Booking failed",
+    "required": "{{field}} is required",
+    "invalidEmail": "Invalid email address",
+    "invalidPhone": "Invalid phone number",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "profile": {
+    "myProfile": "My Profile",
+    "updateProfile": "Update Profile",
+    "overview": "Overview",
+    "skills": "Skills",
+    "reviews": "Reviews"
+  },
+  "errors": {
+    "loginFailed": "Login failed. Please check your credentials.",
+    "registrationFailed": "Registration failed",
+    "fetchFailed": "Failed to load data",
+    "bookingFailed": "Booking failed",
+    "required": "{{field}} is required",
+    "invalidEmail": "Invalid email address",
+    "invalidPhone": "Invalid phone number",
+    "passwordTooShort": "Password must be at least 8 characters"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "required": "Required"
+  },
+  "footer": {
+    "tagline": "Connecting customers with trusted construction professionals",
+    "copyright": "© {{year}} BuildConnect. All rights reserved."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome",
+    "recentActivity": "Recent Activity",
+    "statistics": "Statistics",
+    "noData": "No data to display"
+  },
+  "pages": {
+    "availableWorkers": "Available Workers",
+    "findWorkers": "Find Workers",
+    "browseNetwork": "Browse our network of verified construction professionals"
+  },
+  "welcome": {
+    "title": "Welcome to BuildConnect",
+    "hero": {
+      "worker": "You're all set to start receiving job requests and building your reputation!",
+      "customer": "You're ready to find and hire skilled construction workers for your projects!"
+    },
+    "howItWorks": "How It Works",
+    "whatYouCanDoNow": "What You Can Do Now",
+    "workerSteps": {
+      "1": { "title": "Complete Your Profile", "description": "Add portfolio images, certifications, and availability schedule to stand out" },
+      "2": { "title": "Get Discovered", "description": "Customers can find you through search and browse your profile" },
+      "3": { "title": "Receive Bookings", "description": "Accept job requests and manage your schedule easily" },
+      "4": { "title": "Build Reputation", "description": "Earn reviews and ratings to attract more customers" }
+    },
+    "customerSteps": {
+      "1": { "title": "Browse Workers", "description": "Search and filter by specialty, location, and ratings" },
+      "2": { "title": "View Profiles", "description": "Check worker experience, skills, reviews, and portfolio" },
+      "3": { "title": "Book Services", "description": "Schedule jobs with your preferred workers instantly" },
+      "4": { "title": "Stay Connected", "description": "Message workers directly and track your bookings" }
+    },
+    "features": {
+      "completeProfile": { "title": "Complete Your Profile", "description": "Add photos, update your bio, and showcase your work" },
+      "setAvailability": { "title": "Set Availability", "description": "Let customers know when you're available for work" },
+      "respondInquiries": { "title": "Respond to Inquiries", "description": "Chat with potential customers about their projects" },
+      "acceptBookings": { "title": "Accept Bookings", "description": "Review and accept job requests that fit your schedule" },
+      "searchWorkers": { "title": "Search Workers", "description": "Find workers by specialty, location, and ratings" },
+      "saveFavorites": { "title": "Save Favorites", "description": "Bookmark workers you'd like to hire in the future" },
+      "bookServices": { "title": "Book Services", "description": "Schedule jobs with just a few clicks" },
+      "leaveReviews": { "title": "Leave Reviews", "description": "Help others by sharing your experience" }
+    },
+    "cta": { "viewProfile": "View My Profile", "browseWorkers": "Browse Workers", "dashboardNote": "You can always access your dashboard from the menu" }
+  }
+}

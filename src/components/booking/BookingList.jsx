@@ -1,8 +1,11 @@
 import React from 'react';
 import BookingCard from './BookingCard';
 import Loader from '../common/Loader';
+import { useTranslation } from 'react-i18next'; // 1. Hook is already imported here
 
 const BookingList = ({ bookings, loading, error, isWorker, onAccept, onReject, onCancel }) => {
+  const { t } = useTranslation(); // 2. Initialize the translation function
+
   if (loading) {
     return (
       <div className="py-16">
@@ -14,7 +17,9 @@ const BookingList = ({ bookings, loading, error, isWorker, onAccept, onReject, o
   if (error) {
     return (
       <div className="text-center py-16">
-        <p className="text-xl text-red-600">{error}</p>
+        {/* 3. Use t() for error messages if you have a specific key, 
+           or keep the dynamic error if it comes from the API */}
+        <p className="text-xl text-red-600">{t('errors.fetchFailed')}</p>
       </div>
     );
   }
@@ -22,7 +27,8 @@ const BookingList = ({ bookings, loading, error, isWorker, onAccept, onReject, o
   if (!bookings || bookings.length === 0) {
     return (
       <div className="text-center py-16">
-        <p className="text-xl text-gray-600">No bookings found</p>
+        {/* 4. Replace "No bookings found" with the JSON key */}
+        <p className="text-xl text-gray-600">{t('booking.noBookings')}</p>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { bookingService } from '../../api/bookingService';
 import Loader from '../common/Loader';
@@ -6,6 +7,7 @@ import BookingList from '../booking/BookingList';
 import { useBooking } from '../../hooks/useBooking';
 
 const CustomerDashboard = () => {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const { cancelBooking } = useBooking();
   const [bookings, setBookings] = useState([]);
@@ -18,7 +20,7 @@ const CustomerDashboard = () => {
         const data = await bookingService.getUserBookings(currentUser.id);
         setBookings(data);
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to load bookings');
+        setError(err.response?.data?.message || t('errors.fetchFailed'));
       } finally {
         setLoading(false);
       }
@@ -27,23 +29,23 @@ const CustomerDashboard = () => {
     if (currentUser) {
       fetchBookings();
     }
-  }, [currentUser]);
+  }, [currentUser, t]);
 
   const handleCancelBooking = async (bookingId) => {
     try {
       await cancelBooking(bookingId);
       setBookings((prev) => prev.filter((b) => b.id !== bookingId));
     } catch (err) {
-      alert('Failed to cancel booking');
+      alert(t('errors.bookingFailed'));
     }
   };
 
-  if (loading) return <Loader fullScreen />;
+  if (loading) return <Loader fullScreen showText />;
   if (error) return <div className="text-center py-16 text-red-600">{error}</div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">My Bookings</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">{t('booking.myBookings')}</h1>
 
       <BookingList
         bookings={bookings}

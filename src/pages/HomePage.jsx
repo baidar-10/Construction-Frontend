@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Users, Calendar, MessageSquare } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/common/Button';
 import SearchBar from '../components/common/SearchBar';
 import { useWorkers } from '../hooks/useWorkers';
 
 const HomePage = () => {
+  const { t } = useTranslation();
   const { searchWorkers } = useWorkers();
 
   const handleSearch = (query) => {
@@ -17,23 +19,23 @@ const HomePage = () => {
   const features = [
     {
       icon: <Search size={32} />,
-      title: 'Find Workers',
-      description: 'Search for qualified construction professionals by skills, location, and ratings',
+      title: t('features.findWorkers.title'),
+      description: t('features.findWorkers.description'),
     },
     {
       icon: <Users size={32} />,
-      title: 'Verified Profiles',
-      description: 'View detailed profiles with reviews, experience, and certifications',
+      title: t('features.verifiedProfiles.title'),
+      description: t('features.verifiedProfiles.description'),
     },
     {
       icon: <Calendar size={32} />,
-      title: 'Easy Booking',
-      description: 'Schedule appointments directly through our platform',
+      title: t('features.easyBooking.title'),
+      description: t('features.easyBooking.description'),
     },
     {
       icon: <MessageSquare size={32} />,
-      title: 'Direct Communication',
-      description: 'Message workers directly to discuss project details',
+      title: t('features.directCommunication.title'),
+      description: t('features.directCommunication.description'),
     },
   ];
 
@@ -44,41 +46,38 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Find Trusted Construction Professionals
+              {t('hero.title')}
             </h1>
             <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto">
-              Connect with experienced workers for all your home repair and construction needs
+              {t('hero.subtitle')}
             </p>
 
             <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-2">
               <SearchBar
                 onSearch={handleSearch}
-                placeholder="Search by name, role, or location..."
+                placeholder={t('hero.searchPlaceholder')}
               />
             </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <Link to="/workers">
-              {/* ✅ Updated Left Button to match the Right Button style */}
-              <Button
-                size="lg"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              <Link to="/workers">
+                <Button 
+                size="lg" 
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-orange-600"
-              >
-                Browse Workers
-              </Button>
-            </Link>
-            
-            <Link to="/register">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-orange-600"
-              >
-                Join as Worker
-              </Button>
-            </Link>
-          </div>
+                className="border-white text-white hover:bg-white hover:text-orange-600">
+                  {t('hero.browseWorkers')}
+                </Button>
+              </Link>
+              <Link to="/register?type=worker">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-orange-600"
+                >
+                  {t('hero.joinAsWorker')}
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -87,7 +86,7 @@ const HomePage = () => {
       <div className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
-            How It Works
+            {t('features.title')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
@@ -106,17 +105,17 @@ const HomePage = () => {
       {/* CTA Section */}
       <div className="bg-slate-800 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+          <h2 className="text-3xl font-bold mb-4">{t('cta.title')}</h2>
           <p className="text-xl text-slate-300 mb-8">
-            Join thousands of satisfied customers and skilled workers
+            {t('cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/register?type=customer">
-              <Button size="lg">Sign Up as Customer</Button>
+              <Button size="lg">{t('cta.signupCustomer')}</Button>
             </Link>
             <Link to="/register?type=worker">
               <Button size="lg" variant="secondary">
-                Register as Worker
+                {t('cta.registerWorker')}
               </Button>
             </Link>
           </div>
