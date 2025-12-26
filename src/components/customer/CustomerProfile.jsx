@@ -1,94 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import Input from '../common/Input';
-import Button from '../common/Button';
-import { customerService } from '../../api/customerService';
+import { useTranslation } from 'react-i18next';
 
 const CustomerProfile = () => {
-  const { currentUser, setCurrentUser } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    location: '',
-  });
+  const { currentUser } = useAuth();
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    if (currentUser) {
-      setFormData({
-        name: currentUser.name || '',
-        email: currentUser.email || '',
-        phone: currentUser.phone || '',
-        location: currentUser.location || '',
-      });
-    }
-  }, [currentUser]);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const updatedUser = await customerService.updateCustomerProfile(
-        currentUser.id,
-        formData
-      );
-      setCurrentUser(updatedUser);
-      alert('Profile updated successfully');
-    } catch (err) {
-      alert('Failed to update profile');
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (!currentUser) return null;
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">My Profile</h2>
+    <div className="max-w-3xl mx-auto pt-12 pb-24">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8 mt-2">{t('profile.myProfile')}</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Input
-          label="Full Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <div className="bg-white rounded-lg shadow p-6 space-y-6">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <h3 className="text-sm text-gray-500">{t('auth.firstName')}</h3>
+            <p className="text-lg font-medium text-gray-900">{currentUser.firstName || '-'}</p>
+          </div>
+          <div>
+            <h3 className="text-sm text-gray-500">{t('auth.lastName')}</h3>
+            <p className="text-lg font-medium text-gray-900">{currentUser.lastName || '-'}</p>
+          </div>
+        </div>
 
-        <Input
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <h3 className="text-sm text-gray-500">{t('auth.email')}</h3>
+          <p className="text-lg font-medium text-gray-900">{currentUser.email || '-'}</p>
+        </div>
 
-        <Input
-          label="Phone Number"
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <h3 className="text-sm text-gray-500">{t('auth.phone')}</h3>
+          <p className="text-lg font-medium text-gray-900">{currentUser.phone || '-'}</p>
+        </div>
 
-        <Input
-          label="Location"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <h3 className="text-sm text-gray-500">{t('auth.location')}</h3>
+          <p className="text-lg font-medium text-gray-900">{currentUser.location || '-'}</p>
+        </div>
 
-        <Button type="submit" loading={loading} className="w-full">
-          Update Profile
-        </Button>
-      </form>
+        <div>
+          <p className="text-sm text-gray-500">{t('profile.editDisabledNote') || 'To change your account details, go to Settings.'}</p>
+        </div>
+      </div>
     </div>
   );
 };

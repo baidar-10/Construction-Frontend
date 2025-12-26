@@ -4,6 +4,7 @@ import { Users, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import LanguageSwitcher from './LanguageSwitcher';
+import ProfileMenu from './ProfileMenu';
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -41,21 +42,15 @@ const Navbar = () => {
 
             {currentUser ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  {t('nav.dashboard')}
-                </Link>
-                <span className="text-gray-700">
-                  {t('nav.welcome', { name: currentUser.name })}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  {t('nav.logout')}
-                </button>
+                {currentUser.userType === 'worker' && (
+                  <Link
+                    to="/dashboard"
+                    className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    {t('nav.dashboard')}
+                  </Link>
+                )}
+                <ProfileMenu />
               </>
             ) : (
               <>
@@ -101,22 +96,18 @@ const Navbar = () => {
 
             {currentUser ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t('nav.dashboard')}
-                </Link>
-                <div className="px-4 py-2 text-gray-700">
-                  {t('nav.welcome', { name: currentUser.name })}
+                {currentUser.userType === 'worker' && (
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {t('nav.dashboard')}
+                  </Link>
+                )}
+                <div className="px-4 py-2">
+                  <ProfileMenu />
                 </div>
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-                >
-                  {t('nav.logout')}
-                </button>
               </>
             ) : (
               <>

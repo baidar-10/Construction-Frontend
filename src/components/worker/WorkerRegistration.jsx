@@ -15,7 +15,8 @@ const WorkerRegistration = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     phone: '+7', // Initialize with +7
@@ -40,7 +41,8 @@ const WorkerRegistration = () => {
     e.preventDefault();
 
     const validationRules = {
-      name: { required: true },
+      firstName: { required: true },
+      lastName: { required: true },
       email: { required: true, email: true },
       password: { required: true, password: true },
       phone: { required: true, phone: true },
@@ -60,10 +62,26 @@ const WorkerRegistration = () => {
     try {
       setLoading(true);
       const skillsArray = formData.skills.split(',').map((s) => s.trim());
-      await register({ ...formData, skills: skillsArray });
+      // Map frontend field names to backend expected fields
+      const payload = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+        phone: formData.phone,
+        userType: formData.userType,
+        specialty: formData.role,
+        hourlyRate: parseFloat(formData.hourlyRate) || 0,
+        experienceYears: parseInt(formData.experience, 10) || 0,
+        bio: formData.bio,
+        location: formData.location,
+        skills: skillsArray,
+      };
+
+      await register(payload);
       navigate('/dashboard');
     } catch (err) {
-      setErrors({ submit: err.response?.data?.message || t('errors.registrationFailed') });
+      setErrors({ submit: err.response?.data?.message || err.response?.data?.error || t('errors.registrationFailed') });
     } finally {
       setLoading(false);
     }
@@ -77,11 +95,20 @@ const WorkerRegistration = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
-          label={t('auth.fullName')}
-          name="name"
-          value={formData.name}
+          label={t('auth.firstName')}
+          name="firstName"
+          value={formData.firstName}
           onChange={handleChange}
-          error={errors.name}
+          error={errors.firstName}
+          required
+        />
+
+        <Input
+          label={t('auth.lastName')}
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          error={errors.lastName}
           required
         />
 

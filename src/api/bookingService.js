@@ -10,13 +10,13 @@ export const bookingService = {
   // Get user bookings
   getUserBookings: async (userId) => {
     const response = await axios.get(`/bookings/user/${userId}`);
-    return response.data;
+    return response.data.bookings || [];
   },
 
   // Get worker bookings
   getWorkerBookings: async (workerId) => {
     const response = await axios.get(`/bookings/worker/${workerId}`);
-    return response.data;
+    return response.data.bookings || [];
   },
 
   // Update booking status

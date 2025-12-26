@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { bookingService } from '../../api/bookingService';
+import { workerService } from '../../api/workerService';
 import Loader from '../common/Loader';
 import BookingCard from '../booking/BookingCard';
 
@@ -15,10 +16,31 @@ const WorkerDashboard = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const data = await bookingService.getWorkerBookings(currentUser.id);
-        setBookings(data);
+        // If user is a worker, we need the worker's ID (not the user ID) to fetch bookings
+        if (currentUser.userType === 'worker') {
+          try {
+            const worker = await workerService.getWorkerByUserId(currentUser.id);
+            if (!worker || !worker.id) {
+              // show friendly message when worker profile doesn't exist
+              setError(t('workerProfile.notFound') || 'Worker profile not found. Please complete your profile.');
+              return;
+            }
+            const data = await bookingService.getWorkerBookings(worker.id);
+            setBookings(data);
+          } catch (err) {
+            // If backend returns 404 for missing worker profile, show helpful message
+            if (err.response?.status === 404) {
+              setError(err.response?.data?.message || t('workerProfile.notFound') || 'Worker profile not found. Please complete your profile.');
+              return;
+            }
+            throw err; // rethrow other errors to be handled below
+          }
+        } else {
+          const data = await bookingService.getUserBookings(currentUser.id);
+          setBookings(data);
+        }
       } catch (err) {
-        setError(err.response?.data?.message || t('errors.fetchFailed'));
+        setError(err.response?.data?.message || err.message || t('errors.fetchFailed'));
       } finally {
         setLoading(false);
       }

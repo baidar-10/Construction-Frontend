@@ -17,6 +17,12 @@ export const workerService = {
     return response.data.worker;
   },
 
+  // Get worker by associated user ID
+  getWorkerByUserId: async (userId) => {
+    const response = await axios.get(`/workers/user/${userId}`);
+    return response.data.worker;
+  },
+
   // Search workers
   searchWorkers: async (searchQuery) => {
     const response = await axios.get('/workers/search', {

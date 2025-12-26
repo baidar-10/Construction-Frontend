@@ -25,12 +25,23 @@ export const authService = {
   // Get current user
   getCurrentUser: async () => {
     const response = await axios.get('/auth/me');
-    return response.data;
+    // Backend returns { user: { ... } }
+    return response.data.user || response.data;
   },
 
   // Update user profile
   updateProfile: async (userId, userData) => {
     const response = await axios.put(`/auth/profile/${userId}`, userData);
+    return response.data;
+  },
+
+  // Upload avatar image
+  uploadAvatar: async (userId, file) => {
+    const form = new FormData();
+    form.append('avatar', file);
+    const response = await axios.post(`/auth/profile/${userId}/avatar`, form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return response.data;
   },
 };

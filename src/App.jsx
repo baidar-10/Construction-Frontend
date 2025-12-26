@@ -14,6 +14,8 @@ import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import EnhancedRegister from './pages/EnhancedRegister';
 import WelcomePage from './pages/WelcomePage';
+import WorkerProfilePage from './pages/WorkerProfilePage';
+import SettingsPage from './pages/SettingsPage';
 
 // Components
 import Navbar from './components/common/Navbar';
@@ -31,10 +33,12 @@ function App() {
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/workers" element={<WorkerDirectoryPage />} />
+                  <Route path="/workers/:id" element={<WorkerProfilePage />} />
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/dashboard" element={<DashboardPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/settings" element={<SettingsPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                   <Route path="/register" element={<EnhancedRegister />} />
                   <Route path="/welcome" element={<WelcomePage />} />

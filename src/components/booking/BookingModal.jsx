@@ -9,6 +9,7 @@ const BookingModal = ({ worker, onClose }) => {
   const { createBooking } = useBooking();
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const workerName = worker.user ? `${worker.user.firstName} ${worker.user.lastName}`.trim() : 'Worker';
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -37,7 +38,7 @@ const BookingModal = ({ worker, onClose }) => {
         description: formData.description,
         status: 'pending',
       });
-      alert(`Booking request sent to ${worker.name}`);
+      alert(`Booking request sent to ${workerName}`);
       onClose();
     } catch (err) {
       alert('Failed to create booking');
@@ -51,7 +52,7 @@ const BookingModal = ({ worker, onClose }) => {
       <div className="bg-white rounded-2xl max-w-md w-full">
         <div className="bg-orange-500 text-white p-6 rounded-t-2xl">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">Book {worker.name}</h2>
+            <h2 className="text-2xl font-bold">Book {workerName}</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-orange-600 rounded-full transition-colors"

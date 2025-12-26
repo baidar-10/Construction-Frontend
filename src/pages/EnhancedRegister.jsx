@@ -14,7 +14,8 @@ const EnhancedRegister = () => {
 
   const [formData, setFormData] = useState({
     // Common fields
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -51,8 +52,8 @@ const EnhancedRegister = () => {
   };
 
   const validateStep1 = () => {
-    if (!formData.fullName.trim()) {
-      setError(t('errors.required', { field: t('auth.fullName') }));
+    if (!formData.firstName.trim() || !formData.lastName.trim()) {
+      setError(t('errors.required', { field: `${t('auth.firstName')} / ${t('auth.lastName')}` }));
       return false;
     }
     if (!formData.email.trim()) {
@@ -104,7 +105,8 @@ const EnhancedRegister = () => {
 
     try {
       const registrationData = {
-        fullName: formData.fullName,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         email: formData.email,
         password: formData.password,
         phone: formData.phone,
@@ -252,16 +254,29 @@ const EnhancedRegister = () => {
         <form onSubmit={handleSubmit}>
           {step === 1 && (
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-                <input
-                  type="text"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                  placeholder="John Doe"
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.firstName')} *</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    placeholder="John"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('auth.lastName')} *</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    placeholder="Doe"
+                  />
+                </div>
               </div>
 
               <div>

@@ -15,7 +15,8 @@ const CustomerRegistration = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     phone: '+7', // Initialize with +7
@@ -35,7 +36,8 @@ const CustomerRegistration = () => {
     e.preventDefault();
 
     const validationRules = {
-      name: { required: true },
+      firstName: { required: true },
+      lastName: { required: true },
       email: { required: true, email: true },
       password: { required: true, password: true },
       phone: { required: true, phone: true },
@@ -51,10 +53,13 @@ const CustomerRegistration = () => {
 
     try {
       setLoading(true);
-      await register(formData);
+      // Map `location` -> `address` for customers
+      const payload = { ...formData, address: formData.location };
+      await register(payload);
       navigate('/dashboard');
     } catch (err) {
-      setErrors({ submit: err.response?.data?.message || t('errors.registrationFailed') });
+      // backend returns { error: "..." } so check both keys for better UX
+      setErrors({ submit: err.response?.data?.message || err.response?.data?.error || t('errors.registrationFailed') });
     } finally {
       setLoading(false);
     }
@@ -66,14 +71,25 @@ const CustomerRegistration = () => {
         {t('auth.register')} {t('auth.imCustomer').toLowerCase()}
       </h2>
 
-      <Input
-        label={t('auth.fullName')}
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        error={errors.name}
-        required
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Input
+          label={t('auth.firstName')}
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          error={errors.firstName}
+          required
+        />
+
+        <Input
+          label={t('auth.lastName')}
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          error={errors.lastName}
+          required
+        />
+      </div>
 
       <Input
         label={t('auth.email')}

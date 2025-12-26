@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import enTranslations from './locales/en.json';
 import ruTranslations from './locales/ru.json';
+import kkTranslations from './locales/kk.json';
 
 i18n
   .use(LanguageDetector)
@@ -15,6 +16,9 @@ i18n
       },
       ru: {
         translation: ruTranslations,
+      },
+      kk: {
+        translation: kkTranslations,
       },
     },
     fallbackLng: 'en',

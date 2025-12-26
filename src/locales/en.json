@@ -46,8 +46,7 @@
     "busy": "Busy",
     "unavailable": "Unavailable",
     "years": "years",
-    "experience": "{{count}} years experience",
-    "reviews": "{{count}} reviews",
+    "experience": "{{count}} years experience",    "licenseNote": "Licensed technician specialized in residential projects.",    "reviews": "{{count}} reviews",
     "rate": "Rate",
     "perHour": "/hr",
     "viewProfile": "View Profile",
@@ -57,6 +56,8 @@
     "about": "About",
     "companies": "Affiliated Companies",
     "professionalSkills": "Professional Skills",
+    "verified": "Verified",
+    "viewBookings": "View bookings",
     "noReviews": "No reviews yet"
   },
   "search": {
@@ -67,11 +68,21 @@
   },
   "booking": {
     "title": "Book {{name}}",
+    "requestTitle": "Request Booking",
+    "titleLabel": "Title",
+    "descriptionLabel": "Description",
+    "dateLabel": "Date",
+    "durationLabel": "Duration (hours)",
+    "locationLabel": "Location",
     "selectDate": "Select Date",
     "selectTime": "Select Time",
     "chooseTime": "Choose a time",
     "projectDescription": "Project Description",
     "descriptionPlaceholder": "Describe the work you need done...",
+    "titlePlaceholder": "e.g., Kitchen Renovation",
+    "locationPlaceholder": "e.g., 123 Main St",
+    "durationHoursLabel": "Duration (hours)",
+    "sending": "Sending...",
     "estimatedRate": "Estimated Rate:",
     "finalCostNote": "Final cost will be discussed with the worker",
     "sendRequest": "Send Booking Request",
@@ -93,7 +104,8 @@
     "register": "Register",
     "welcomeBack": "Welcome Back",
     "createAccount": "Create Your Account",
-    "fullName": "Full Name",
+    "firstName": "First Name",
+    "lastName": "Last Name",
     "email": "Email",
     "password": "Password",
     "phone": "Phone Number",
@@ -157,9 +169,19 @@
   "profile": {
     "myProfile": "My Profile",
     "updateProfile": "Update Profile",
+    "editProfile": "Edit Profile",
+    "updateSuccess": "Profile updated successfully",
+    "updateFailed": "Failed to update profile",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
     "overview": "Overview",
     "skills": "Skills",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "editDisabledNote": "To change your account details, go to Settings."
+  },
+  "common": {
+    "saving": "Saving..."
   },
   "errors": {
     "loginFailed": "Login failed. Please check your credentials.",
