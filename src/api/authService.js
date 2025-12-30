@@ -44,4 +44,19 @@ export const authService = {
     });
     return response.data;
   },
+
+  // Delete avatar image
+  deleteAvatar: async (userId) => {
+    const response = await axios.delete(`/auth/profile/${userId}/avatar`);
+    return response.data;
+  },
+
+  // Change password
+  changePassword: async (userId, currentPassword, newPassword) => {
+    const response = await axios.put(`/auth/profile/${userId}/password`, {
+      currentPassword,
+      newPassword,
+    });
+    return response.data;
+  },
 };

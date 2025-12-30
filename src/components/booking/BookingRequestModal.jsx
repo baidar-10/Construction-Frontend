@@ -19,19 +19,24 @@ const BookingRequestModal = ({ workerId, onClose, onCreated }) => {
     setLoading(true);
     setError('');
     try {
+      // Convert date to ISO 8601 format with time component
+      const scheduledDateTime = scheduledDate ? `${scheduledDate}T00:00:00Z` : '';
+      
       const payload = {
         workerId,
         title,
         description,
-        scheduledDate,
-        durationHours,
+        scheduledDate: scheduledDateTime,
+        durationHours: parseInt(durationHours, 10),
         location,
       };
+      console.log('Sending booking payload:', payload);
       const resp = await bookingService.createBooking(payload);
       onCreated && onCreated(resp.booking);
       onClose();
     } catch (err) {
-      setError(err.response?.data?.message || err.message || t('errors.bookingFailed'));
+      console.error('Booking error:', err.response?.data || err);
+      setError(err.response?.data?.error || err.response?.data?.message || err.message || t('errors.bookingFailed'));
     } finally {
       setLoading(false);
     }

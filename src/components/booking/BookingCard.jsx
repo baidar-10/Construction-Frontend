@@ -34,13 +34,17 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
           </div>
           <div>
             <h3 className="font-bold text-lg text-gray-900">
-              {isWorker ? booking.customerName : booking.workerName}
+              {isWorker ? (booking.customerName || 'Unknown Customer') : (booking.workerName || 'Unknown Worker')}
             </h3>
-            <p className="text-gray-600 text-sm">{booking.workerRole}</p>
+            {isWorker && booking.customerPhone && (
+              <p className="text-gray-600 text-sm">{booking.customerPhone}</p>
+            )}
+            {!isWorker && booking.workerRole && (
+              <p className="text-gray-600 text-sm">{booking.workerRole}</p>
+            )}
           </div>
         </div>
         <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(booking.status)}`}>
-          {/* Use dynamic key for status: e.g., booking.status.pending */}
           {t(`booking.status.${booking.status}`)}
         </span>
       </div>
@@ -48,18 +52,37 @@ const BookingCard = ({ booking, onAccept, onReject, onCancel, isWorker = false }
       <div className="space-y-2 mb-4">
         <div className="flex items-center gap-2 text-gray-700">
           <Calendar size={16} />
-          <span>{formatDate(booking.date)}</span>
+          <span>{booking.date ? formatDate(booking.date) : 'Invalid Date'}</span>
         </div>
-        <div className="flex items-center gap-2 text-gray-700">
-          <Clock size={16} />
-          <span>{formatTime(booking.time)}</span>
-        </div>
+        {booking.time && (
+          <div className="flex items-center gap-2 text-gray-700">
+            <Clock size={16} />
+            <span>{formatTime(booking.time)}</span>
+          </div>
+        )}
       </div>
 
       <div className="mb-4">
-        {/* Translated Label */}
-        <p className="text-sm text-gray-600 font-medium mb-1">{t('booking.projectDescription')}:</p>
-        <p className="text-gray-700">{booking.description}</p>
+        <p className="text-sm text-gray-600 font-medium mb-1">{t('booking.projectTitle')}:</p>
+        <p className="text-gray-900 font-medium">{booking.title || 'No title'}</p>
+        
+        <p className="text-sm text-gray-600 font-medium mt-3 mb-1">{t('booking.projectDescription')}:</p>
+        <p className="text-gray-700">{booking.description || 'No description'}</p>
+        
+        <div className="grid grid-cols-2 gap-4 mt-3">
+          {booking.location && (
+            <div>
+              <p className="text-sm text-gray-600 font-medium">{t('booking.location')}:</p>
+              <p className="text-gray-700">{booking.location}</p>
+            </div>
+          )}
+          {booking.durationHours && (
+            <div>
+              <p className="text-sm text-gray-600 font-medium">{t('booking.duration')}:</p>
+              <p className="text-gray-700">{booking.durationHours} {t('booking.hours')}</p>
+            </div>
+          )}
+        </div>
       </div>
 
       {booking.status === BOOKING_STATUS.PENDING && (

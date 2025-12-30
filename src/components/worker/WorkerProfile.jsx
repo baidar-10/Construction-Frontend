@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Star, Calendar, MessageSquare, Shield } from 'lucide-react';
+import { MapPin, Star, Calendar, MessageSquare, Shield, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next'; // 1. Import hook
 import { useAuth } from '../../hooks/useAuth';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import BookingRequestModal from '../booking/BookingRequestModal';
 
 const WorkerProfile = ({ worker: propWorker }) => {
   const { t } = useTranslation(); // 2. Initialize t function
+  const { currentUser } = useAuth();
 
   // Accept worker from props; fall back to a simple placeholder if missing
   const worker = propWorker || {
@@ -21,6 +22,8 @@ const WorkerProfile = ({ worker: propWorker }) => {
   };
 
   const workerName = worker.user ? `${worker.user.firstName} ${worker.user.lastName}`.trim() : 'Unknown';
+  const isOwnProfile = !propWorker; // If no worker passed as prop, it's the user's own profile
+  const avatarUrl = worker.user?.avatarUrl;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,21 +31,37 @@ const WorkerProfile = ({ worker: propWorker }) => {
         {/* Header */}
         <div className="p-8 border-b border-gray-100">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 break-words">{workerName}</h1>
-              <p className="text-lg text-blue-600 font-medium">
-                {/* Assuming "Professional" prefix from JSON */}
-                {t('worker.professional')} {worker.role}
-              </p>
-              <div className="flex items-center mt-2 text-gray-500">
-                <MapPin className="w-4 h-4 mr-1" />
-                <span>{worker.location}</span>
-                <span className="mx-2">•</span>
-                <Star className="w-4 h-4 text-yellow-500 mr-1 fill-current" />
-                <span className="text-gray-900 font-medium">
-                  {/* Interpolation for review count */}
-                  {worker.rating} ({t('worker.reviews', { count: worker.reviewCount })})
-                </span>
+            <div className="flex items-start gap-4">
+              {/* Profile Picture */}
+              <div className="flex-shrink-0">
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt={workerName}
+                    className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
+                  />
+                ) : (
+                  <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center border-2 border-gray-300">
+                    <User className="w-10 h-10 text-gray-500" />
+                  </div>
+                )}
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 break-words">{workerName}</h1>
+                <p className="text-lg text-blue-600 font-medium">
+                  {/* Assuming "Professional" prefix from JSON */}
+                  {t('worker.professional')} {worker.role}
+                </p>
+                <div className="flex items-center mt-2 text-gray-500">
+                  <MapPin className="w-4 h-4 mr-1" />
+                  <span>{worker.location}</span>
+                  <span className="mx-2">•</span>
+                  <Star className="w-4 h-4 text-yellow-500 mr-1 fill-current" />
+                  <span className="text-gray-900 font-medium">
+                    {/* Interpolation for review count */}
+                    {worker.rating} ({t('worker.reviews', { count: worker.reviewCount })})
+                  </span>
+                </div>
               </div>
             </div>
             <div className="text-right">

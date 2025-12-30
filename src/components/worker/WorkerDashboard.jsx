@@ -26,7 +26,18 @@ const WorkerDashboard = () => {
               return;
             }
             const data = await bookingService.getWorkerBookings(worker.id);
-            setBookings(data);
+            // Transform booking data to include customer information
+            const transformedBookings = data.map(booking => ({
+              ...booking,
+              customerName: booking.customer?.user ? 
+                `${booking.customer.user.firstName} ${booking.customer.user.lastName}` : 
+                'Unknown Customer',
+              customerPhone: booking.customer?.user?.phone || 'N/A',
+              date: booking.scheduledDate,
+              time: booking.scheduledTime,
+              description: booking.description || booking.title
+            }));
+            setBookings(transformedBookings);
           } catch (err) {
             // If backend returns 404 for missing worker profile, show helpful message
             if (err.response?.status === 404) {
@@ -62,7 +73,7 @@ const WorkerDashboard = () => {
         {bookings.length === 0 ? (
           <p className="text-gray-600">{t('booking.noBookings')}</p>
         ) : (
-          bookings.map((booking) => <BookingCard key={booking.id} booking={booking} />)
+          bookings.map((booking) => <BookingCard key={booking.id} booking={booking} isWorker={true} />)
         )}
       </div>
     </div>

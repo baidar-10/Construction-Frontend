@@ -91,6 +91,10 @@
     "cancelBooking": "Cancel Booking",
     "acceptBooking": "Accept",
     "declineBooking": "Decline",
+    "projectTitle": "Project Title",
+    "location": "Location",
+    "duration": "Duration",
+    "hours": "hours",
     "status": {
       "pending": "Pending",
       "confirmed": "Confirmed",
@@ -178,23 +182,25 @@
     "overview": "Overview",
     "skills": "Skills",
     "reviews": "Reviews",
-    "editDisabledNote": "To change your account details, go to Settings."
-  },
-  "common": {
-    "saving": "Saving..."
-  },
-  "errors": {
-    "loginFailed": "Login failed. Please check your credentials.",
-    "registrationFailed": "Registration failed",
-    "fetchFailed": "Failed to load data",
-    "bookingFailed": "Booking failed",
-    "required": "{{field}} is required",
-    "invalidEmail": "Invalid email address",
-    "invalidPhone": "Invalid phone number",
-    "passwordTooShort": "Password must be at least 8 characters"
+    "editDisabledNote": "To change your account details, go to Settings.",
+    "profilePicture": "Profile Picture",
+    "deleteAvatar": "Delete avatar",
+    "confirmDeleteAvatar": "Are you sure you want to delete your profile picture?",
+    "avatarDeleted": "Profile picture deleted successfully",
+    "deleteFailed": "Failed to delete avatar",
+    "security": "Security",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "passwordChanged": "Password changed successfully",
+    "passwordChangeFailed": "Failed to change password"
   },
   "common": {
     "loading": "Loading...",
+    "saving": "Saving...",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",

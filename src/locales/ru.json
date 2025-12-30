@@ -93,6 +93,10 @@
     "cancelBooking": "Отменить заказ",
     "acceptBooking": "Принять",
     "declineBooking": "Отклонить",
+    "projectTitle": "Название проекта",
+    "location": "Местоположение",
+    "duration": "Длительность",
+    "hours": "часов",
     "status": {
       "pending": "На рассмотрении",
       "confirmed": "Подтверждено",
@@ -179,13 +183,25 @@
     "overview": "Общая информация",
     "skills": "Навыки",
     "reviews": "Отзывы",
-    "editDisabledNote": "Чтобы изменить данные аккаунта, перейдите в Настройки."
-  },
-  "common": {
-    "saving": "Сохранение..."
+    "editDisabledNote": "Чтобы изменить данные аккаунта, перейдите в Настройки.",
+    "profilePicture": "Фото профиля",
+    "deleteAvatar": "Удалить фото",
+    "confirmDeleteAvatar": "Вы уверены, что хотите удалить фото профиля?",
+    "avatarDeleted": "Фото профиля успешно удалено",
+    "deleteFailed": "Не удалось удалить фото",
+    "security": "Безопасность",
+    "changePassword": "Изменить пароль",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "passwordTooShort": "Пароль должен быть не менее 6 символов",
+    "passwordsDoNotMatch": "Пароли не совпадают",
+    "passwordChanged": "Пароль успешно изменён",
+    "passwordChangeFailed": "Не удалось изменить пароль"
   },
   "common": {
     "loading": "Загрузка...",
+    "saving": "Сохранение...",
     "save": "Сохранить",
     "cancel": "Отмена",
     "delete": "Удалить",

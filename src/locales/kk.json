@@ -93,6 +93,10 @@
     "cancelBooking": "Брондауды болдырмау",
     "acceptBooking": "Қабылдау",
     "declineBooking": "Тастау",
+    "projectTitle": "Жоба атауы",
+    "location": "Орналасқан жері",
+    "duration": "Ұзақтығы",
+    "hours": "сағат",
     "status": {
       "pending": "Күтуде",
       "confirmed": "Расталған",
@@ -143,7 +147,21 @@
     "overview": "Шолу",
     "skills": "Дағдылар",
     "reviews": "Пікірлер",
-    "editDisabledNote": "Аккаунт деректерін өзгерту үшін Параметрлер бетіне өтіңіз."
+    "editDisabledNote": "Аккаунт деректерін өзгерту үшін Параметрлер бетіне өтіңіз.",
+    "profilePicture": "Профиль суреті",
+    "deleteAvatar": "Суретті жою",
+    "confirmDeleteAvatar": "Профиль суретін жоюға сенімдісіз бе?",
+    "avatarDeleted": "Профиль суреті сәтті жойылды",
+    "deleteFailed": "Суретті жою мүмкін болмады",
+    "security": "Қауіпсіздік",
+    "changePassword": "Құпия сөзді өзгерту",
+    "currentPassword": "Ағымдағы құпия сөз",
+    "newPassword": "Жаңа құпия сөз",
+    "confirmPassword": "Құпия сөзді растау",
+    "passwordTooShort": "Құпия сөз кем дегенде 6 таңбалы болуы қажет",
+    "passwordsDoNotMatch": "Құпия сөздер сәйкес келмейді",
+    "passwordChanged": "Құпия сөз сәтті өзгертілді",
+    "passwordChangeFailed": "Құпия сөзді өзгерту мүмкін болмады"
   },
   "errors": {
     "loginFailed": "Кіру сәтсіз аяқталды. Деректерді тексеріңіз.",
